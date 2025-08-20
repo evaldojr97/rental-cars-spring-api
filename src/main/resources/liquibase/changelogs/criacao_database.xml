@@ -4,18 +4,88 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="criar-tabela-carro" author="name">
+    <changeSet id="criar-tabela-carro" author="rental-cars-api">
         <createTable tableName="carro">
             <column name="id" type="int8" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="pk_carro"/>
             </column>
-            <column name="modelo" type="varchar(50)"/>
-            <column name="ano" type="varchar(4)"/>
-            <column name="qtd_passageiros" type="int8"/>
-            <column name="km" type="int8"/>
-            <column name="fabricante" type="varchar(50)"/>
-            <column name="vlr_diaria" type="decimal(7,2)"/>
+            <column name="modelo" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ano" type="varchar(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="qtd_passageiros" type="int8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="km" type="int8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fabricante" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vlr_diaria" type="decimal(7,2)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
+    </changeSet>
+
+    <changeSet id="criar-tabela-cliente" author="rental-cars-api">
+        <createTable tableName="cliente">
+            <column name="id" type="int8" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_cliente"/>
+            </column>
+            <column name="nome" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cpf" type="varchar(11)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="cnh" type="varchar(11)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="telefone" type="varchar(13)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="criar-tabela-aluguel" author="rental-cars-api">
+        <createTable tableName="aluguel">
+            <column name="id" type="int8" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_aluguel"/>
+            </column>
+            <column name="carro_id" type="int8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cliente_id" type="int8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_aluguel" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_devolucao" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="valor" type="decimal(7,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pago" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addForeignKeyConstraint baseColumnNames="carro_id"
+                                 baseTableName="aluguel"
+                                 constraintName="fk_aluguel_carro"
+                                 referencedColumnNames="id"
+                                 referencedTableName="carro"/>
+                                 
+        <addForeignKeyConstraint baseColumnNames="cliente_id"
+                                 baseTableName="aluguel"
+                                 constraintName="fk_aluguel_cliente"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cliente"/>
     </changeSet>
 
 </databaseChangeLog>

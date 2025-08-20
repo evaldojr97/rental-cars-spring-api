@@ -17,23 +17,24 @@ public class Carro implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "modelo")
+    @Column(name = "modelo", length = 50, nullable = false)
     private String modelo;
 
-    @Column(name = "ano")
+    @Column(name = "ano", length = 4, nullable = false)
     private String ano;
 
-    @Column(name = "qtd_passageiros")
-    private Integer qtdPassageiros;
+    @Column(name = "qtd_passageiros", nullable = false)
+    private Long qtdPassageiros;
 
-    @Column(name = "km")
-    private Integer km;
+    @Column(name = "km", nullable = false)
+    private Long km;
 
-    @Column(name = "fabricante")
+    @Column(name = "fabricante", length = 50, nullable = false)
     private String fabricante;
 
-    @Column(name = "vlr_diaria")
+    @Column(name = "vlr_diaria", precision = 7, scale = 2, nullable = false)
     private BigDecimal vlrDiaria;
 }
