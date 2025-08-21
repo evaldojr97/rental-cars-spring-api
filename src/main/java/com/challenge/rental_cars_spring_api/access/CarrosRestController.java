@@ -2,10 +2,13 @@ package com.challenge.rental_cars_spring_api.access;
 
 import com.challenge.rental_cars_spring_api.core.queries.ListarCarrosQuery;
 import com.challenge.rental_cars_spring_api.core.queries.dtos.ListarCarrosQueryResultItem;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/carros")
 @RequiredArgsConstructor
+@Tag(name = "Carros", description = "Endpoints para gerenciamento de carros disponíveis para aluguel")
 public class CarrosRestController {
     private final ListarCarrosQuery listarCarrosQuery;
 
